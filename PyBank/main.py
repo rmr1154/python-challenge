@@ -3,6 +3,15 @@
 import os
 import csv
 
+count = 0
+total = 0
+maxprofit = 0
+minprofit = 0
+average = 0
+lastval = 0
+diff = 0
+difftotal = 0
+diffcount = 0
 
 csvpath = os.path.join('.','Resources','budget_data.csv')
 #print(csvpath)
@@ -14,24 +23,24 @@ with open(csvpath, newline='') as csvfile:
      csv_header = next(csvreader)
      #print(f'CSV Header: {csv_header}')
      
-# use list comprehension to read in the file
-     data = {row[0]:int(row[1]) for row in csvreader}
-     
-   
-count = len(data.keys())
-total = sum(data.values())
-maxprofit = max(data.values())
-minprofit = min(data.values())
-average = round(total / count,2)
+     for row in csvreader:
+        rowval = int(row[1]) 
+        total += rowval
+        if count != 0:
+            diff = rowval - lastval
+            diffcount += 1
+        if diff > maxprofit:
+            maxprofit = diff
+            maxmonth = row[0]
+        if diff < minprofit:
+            minprofit = diff
+            minmonth = row[0]
+        lastval = rowval
+        difftotal += diff
+        count += 1
+        #print(f'rowval:{rowval} count:{count} total:{total} diff:{diff} maxprofit:{maxprofit} minprofit:{minprofit} lastval:{lastval} ')
 
-for k,v in data.items():
-    if v == maxprofit:
-        maxmonth=k
-
-for k,v in data.items():
-    if v == minprofit:
-        minmonth=k
-
+average =  round(difftotal / diffcount,2)
         
 report = (f"Financial Analysis\n"\
 "----------------------------\n"\
