@@ -43,17 +43,17 @@ for k,v in candidate_cnt.items():
 # build our formatted loop of the candidate totals to inject in the report
 nested = ""
 for k,v in candidate_cnt.items():
-    nested += ("{0}: {1:.3f}% \n".format(k,(v / votes) * 100)) #ya'll trying to trick me with the rounding!!!
+    nested += ("{0}: {1:.3f}% ({2})\n".format(k,(v / votes) * 100,v))#ya'll trying to trick me with the rounding!!!
 
 # build the report      
 report = (f"Election Results\n"\
-"----------------------------\n"\
+"-------------------------\n"\
 f"Total Votes: {votes}\n"\
-"----------------------------\n"\
+"-------------------------\n"\
 f"{nested}"\
-"----------------------------\n"\
+"-------------------------\n"\
 f"Winner: {winner}\n"\
-"----------------------------\n")
+"-------------------------\n")
 
 print(report)
 
